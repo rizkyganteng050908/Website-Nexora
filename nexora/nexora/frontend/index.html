@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEXORA – Advanced Website Scraper &amp; Analyzer</title>
+  <meta name="description" content="NEXORA membantu developer menganalisis struktur dan aset website publik dari sebuah URL.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%238b5cf6'/><text x='16' y='23' font-size='20' text-anchor='middle' fill='white' font-family='sans-serif'>N</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <div class="bg-fx" aria-hidden="true"></div>
+
+  <aside id="sidebar" class="sidebar" aria-label="Navigasi utama">
+    <div class="brand"><span class="logo">N</span><div><b>NEXORA</b><small>Website Scraper &amp; Analyzer</small></div></div>
+    <nav>
+      <button class="nav-btn active" data-view="dashboard"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z"/></svg>Dashboard</button>
+      <button class="nav-btn" data-view="scraper"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>Scraper</button>
+      <button class="nav-btn" data-view="history"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l4 4 4-4H6a7 7 0 1 1 2 5l-1.4 1.4A9 9 0 1 0 13 3zm-1 5v5l4 2 .8-1.3-3.3-2V8z"/></svg>Riwayat</button>
+    </nav>
+    <div class="side-note">Hanya halaman publik. NEXORA mematuhi robots.txt dan tidak melewati autentikasi.</div>
+  </aside>
+  <div id="scrim" class="scrim"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn" aria-label="Buka menu"><svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg></button>
+      <h1 id="viewTitle">Dashboard</h1>
+      <span class="pill" id="health"><i class="dot"></i><span>Menghubungkan backend…</span></span>
+    </header>
+
+    <section id="view-dashboard" class="view active">
+      <div class="hero card">
+        <div>
+          <h2>Pahami sebuah website dalam hitungan detik</h2>
+          <p>Masukkan URL, lalu lihat HTML, CSS, JavaScript, aset, metadata SEO, dan tautannya di satu tempat.</p>
+        </div>
+        <button class="btn primary" data-go="scraper">Mulai scraping</button>
+      </div>
+      <div id="stats" class="stats"></div>
+      <div class="grid-2">
+        <div class="card"><h3>Analisis 7 hari terakhir</h3><div id="chart" class="chart"></div></div>
+        <div class="card"><h3>Hasil terbaru</h3><div id="recent" class="rows"></div></div>
+      </div>
+    </section>
+
+    <section id="view-scraper" class="view">
+      <form id="scrapeForm" class="card scrape-form" novalidate>
+        <label for="urlInput">URL website publik</label>
+        <div class="input-row">
+          <input id="urlInput" type="text" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://example.com">
+          <button id="startBtn" class="btn primary" type="submit">Start Scraping</button>
+        </div>
+        <p id="formError" class="error-box" role="alert" hidden></p>
+        <p class="hint">Batas: HTML 5 MB, aset 1 MB per berkas, waktu maksimal 60 detik. Alamat internal diblokir (proteksi SSRF).</p>
+      </form>
+
+      <div id="progressCard" class="card progress-card" hidden>
+        <div class="progress-head"><b id="progressMsg">Menyiapkan…</b><span id="progressPct">0%</span></div>
+        <div class="bar-track"><div id="progressBar" class="bar-fill"></div></div>
+        <ul id="progressLog" class="log"></ul>
+      </div>
+      <div id="result"></div>
+    </section>
+
+    <section id="view-history" class="view">
+      <div class="card">
+        <div class="card-head"><h3>Riwayat scraping</h3><button id="clearBtn" class="btn ghost danger">Hapus semua</button></div>
+        <div id="historyList" class="rows"></div>
+      </div>
+    </section>
+  </main>
+  <div id="toasts" aria-live="polite"></div>
+</body>
+</html>
